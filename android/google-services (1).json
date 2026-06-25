@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "627127402941",
+    "project_id": "eduboard-cf0b2",
+    "storage_bucket": "eduboard-cf0b2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:627127402941:android:9743799adfc297cf8212d4",
+        "android_client_info": {
+          "package_name": "com.eduboard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "627127402941-3vjqq3hj48sr8ukl5bgt3ur1mmmh1cl0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB32FT4B3qJKLN1vWnOacyBQQO2y9vZBtk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "627127402941-3vjqq3hj48sr8ukl5bgt3ur1mmmh1cl0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
