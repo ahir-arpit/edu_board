@@ -57,7 +57,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               child: Row(
                 children: [
                   CircleAvatar(
-                    backgroundColor: AppTheme.accentBlue.withOpacity(0.15),
+                    backgroundColor: AppTheme.accentBlue.withValues(alpha: 0.15),
                     radius: 32,
                     child: const Icon(Icons.person, size: 36, color: AppTheme.accentBlue),
                   ),
@@ -79,7 +79,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                           decoration: BoxDecoration(
-                            color: Colors.green.withOpacity(0.15),
+                            color: Colors.green.withValues(alpha: 0.15),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: const Text(
@@ -238,7 +238,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         style: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.bold,
-          color: AppTheme.accentBlue.withOpacity(0.8),
+          color: AppTheme.accentBlue.withValues(alpha: 0.8),
           letterSpacing: 0.8,
         ),
       ),

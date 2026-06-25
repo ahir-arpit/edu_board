@@ -113,7 +113,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   void _showCreateBoardDialog() {
     showDialog(
       context: context,
-      builder: (context) {
+      builder: (dialogContext) {
         return AlertDialog(
           title: const Text("Create New Board"),
           content: TextField(
@@ -126,7 +126,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
           ),
           actions: [
             TextButton(
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => Navigator.pop(dialogContext),
               child: const Text("Cancel"),
             ),
             ElevatedButton(
@@ -135,7 +135,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                 if (title.isNotEmpty) {
                   await ref.read(boardsNotifierProvider.notifier).createNewBoard(title);
                   _newBoardTitleController.clear();
-                  if (mounted) Navigator.pop(context);
+                  if (dialogContext.mounted) Navigator.pop(dialogContext);
                 }
               },
               child: const Text("Create"),
@@ -203,7 +203,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
             icon: const Icon(Icons.logout),
             onPressed: () async {
               await ref.read(authServiceProvider).logout();
-              if (mounted) context.go('/login');
+              if (context.mounted) context.go('/login');
             },
           ),
         ],
@@ -229,7 +229,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
               Row(
                 children: [
                   CircleAvatar(
-                    backgroundColor: AppTheme.accentBlue.withOpacity(0.2),
+                    backgroundColor: AppTheme.accentBlue.withValues(alpha: 0.2),
                     radius: 28,
                     child: Text(
                       user?.name.substring(0, 1).toUpperCase() ?? "U",
@@ -393,10 +393,10 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                             _selectedFolder = folder;
                           });
                         },
-                        selectedColor: AppTheme.accentBlue.withOpacity(0.12),
+                        selectedColor: AppTheme.accentBlue.withValues(alpha: 0.12),
                         checkmarkColor: AppTheme.accentBlue,
                         backgroundColor: Colors.transparent,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20), side: BorderSide(color: Colors.grey.withOpacity(0.2))),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20), side: BorderSide(color: Colors.grey.withValues(alpha: 0.2))),
                       ),
                     );
                   }).toList(),
@@ -442,7 +442,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
                           leading: Container(
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
-                              color: AppTheme.accentBlue.withOpacity(0.1),
+                              color: AppTheme.accentBlue.withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: const Icon(Icons.draw, color: AppTheme.accentBlue),

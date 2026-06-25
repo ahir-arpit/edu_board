@@ -25,7 +25,6 @@ class _PairingScreenState extends ConsumerState<PairingScreen> with SingleTicker
   // Host State
   bool _isGenerating = false;
   String? _sessionCode;
-  String? _boardId;
   WebSocketChannel? _hostChannel;
   
   // Scanner State
@@ -62,7 +61,6 @@ class _PairingScreenState extends ConsumerState<PairingScreen> with SingleTicker
         "Lecture Whiteboard - ${DateTime.now().hour}:${DateTime.now().minute}", 
         auth.currentUser?.id ?? "mock-token"
       );
-      _boardId = board.id;
 
       // 2. Request a pairing session code
       final session = await boardService.createSession(board.id, auth.currentUser?.id ?? "mock-token");
@@ -78,7 +76,6 @@ class _PairingScreenState extends ConsumerState<PairingScreen> with SingleTicker
       // Fallback offline simulator session
       setState(() {
         _sessionCode = "SIMUL8";
-        _boardId = "mock-board-id";
         _isGenerating = false;
       });
       _connectHostSocket("SIMUL8");
@@ -216,9 +213,9 @@ class _PairingScreenState extends ConsumerState<PairingScreen> with SingleTicker
                           Container(
                             padding: const EdgeInsets.all(12),
                             decoration: BoxDecoration(
-                              color: AppTheme.accentBlue.withOpacity(0.08),
+                              color: AppTheme.accentBlue.withValues(alpha: 0.08),
                               borderRadius: BorderRadius.circular(12),
-                              border: Border.all(color: AppTheme.accentBlue.withOpacity(0.2)),
+                              border: Border.all(color: AppTheme.accentBlue.withValues(alpha: 0.2)),
                             ),
                             child: QrImageView(
                               data: kIsWeb ? "${Uri.base.host}|$_sessionCode" : "localhost|$_sessionCode",
@@ -296,7 +293,7 @@ class _PairingScreenState extends ConsumerState<PairingScreen> with SingleTicker
                           decoration: BoxDecoration(
                             color: Colors.black12,
                             borderRadius: BorderRadius.circular(16),
-                            border: Border.all(color: Colors.grey.withOpacity(0.3)),
+                            border: Border.all(color: Colors.grey.withValues(alpha: 0.3)),
                           ),
                           clipBehavior: Clip.antiAlias,
                           child: Stack(

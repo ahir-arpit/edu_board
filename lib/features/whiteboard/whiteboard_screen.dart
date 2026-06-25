@@ -207,7 +207,7 @@ class _WhiteboardScreenState extends ConsumerState<WhiteboardScreen> {
   bool get _isController => widget.role == 'teacher';
 
   String _colorToHex(Color color) {
-    return '0x${color.value.toRadixString(16).padLeft(8, '0').toUpperCase()}';
+    return '0x${color.toARGB32().toRadixString(16).padLeft(8, '0').toUpperCase()}';
   }
 
   // Touch drawing handlers
@@ -522,14 +522,12 @@ class _WhiteboardScreenState extends ConsumerState<WhiteboardScreen> {
       ),
     );
 
-    if (imageBytes != null) {
-      final file = await exportService.generateLocalPdf("SmartBoard Go Notes", imageBytes);
-      await exportService.shareFile(
-        filePath: file.path,
-        subject: "SmartBoard Export",
-        text: "Here are my educational notes exported from SmartBoard Go.",
-      );
-    }
+    final file = await exportService.generateLocalPdf("SmartBoard Go Notes", imageBytes);
+    await exportService.shareFile(
+      filePath: file.path,
+      subject: "SmartBoard Export",
+      text: "Here are my educational notes exported from SmartBoard Go.",
+    );
   }
 
   Future<void> _exportToImage() async {
@@ -545,17 +543,15 @@ class _WhiteboardScreenState extends ConsumerState<WhiteboardScreen> {
       ),
     );
 
-    if (imageBytes != null) {
-      // Save temp file and share
-      final tempDir = await getTemporaryDirectory();
-      final file = await File('${tempDir.path}/screenshot.png').create();
-      await file.writeAsBytes(imageBytes);
-      await exportService.shareFile(
-        filePath: file.path,
-        subject: "Whiteboard Drawing",
-        text: "Check out my live whiteboard sketch!",
-      );
-    }
+    // Save temp file and share
+    final tempDir = await getTemporaryDirectory();
+    final file = await File('${tempDir.path}/screenshot.png').create();
+    await file.writeAsBytes(imageBytes);
+    await exportService.shareFile(
+      filePath: file.path,
+      subject: "Whiteboard Drawing",
+      text: "Check out my live whiteboard sketch!",
+    );
   }
 
   Future<void> _printWhiteboard() async {
@@ -571,9 +567,7 @@ class _WhiteboardScreenState extends ConsumerState<WhiteboardScreen> {
       ),
     );
 
-    if (imageBytes != null) {
-      await exportService.printCanvas(imageBytes);
-    }
+    await exportService.printCanvas(imageBytes);
   }
 
   void _showColorPicker() {
@@ -977,7 +971,7 @@ class _WhiteboardScreenState extends ConsumerState<WhiteboardScreen> {
         width: 320,
         height: 60,
         decoration: BoxDecoration(
-          color: Colors.amber.withOpacity(0.12),
+          color: Colors.amber.withValues(alpha: 0.12),
           borderRadius: BorderRadius.circular(4),
           border: Border.all(color: Colors.amber.shade700, width: 1.5),
         ),
@@ -1014,7 +1008,7 @@ class _WhiteboardScreenState extends ConsumerState<WhiteboardScreen> {
                   child: Container(
                     padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                      color: Colors.amber.shade700.withOpacity(0.8),
+                      color: Colors.amber.shade700.withValues(alpha: 0.8),
                       shape: BoxShape.circle,
                     ),
                     child: const Icon(Icons.sync, size: 16, color: Colors.white),
@@ -1063,9 +1057,9 @@ class _WhiteboardScreenState extends ConsumerState<WhiteboardScreen> {
         width: 200,
         height: 200,
         decoration: BoxDecoration(
-          color: Colors.blue.withOpacity(0.08),
+          color: Colors.blue.withValues(alpha: 0.08),
           shape: BoxShape.circle,
-          border: Border.all(color: Colors.blueAccent.withOpacity(0.3), width: 2),
+          border: Border.all(color: Colors.blueAccent.withValues(alpha: 0.3), width: 2),
         ),
         child: Stack(
           children: [
@@ -1110,7 +1104,7 @@ class _WhiteboardScreenState extends ConsumerState<WhiteboardScreen> {
                   child: Container(
                     padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                      color: Colors.blueAccent.withOpacity(0.8),
+                      color: Colors.blueAccent.withValues(alpha: 0.8),
                       shape: BoxShape.circle,
                     ),
                     child: const Icon(Icons.sync, size: 16, color: Colors.white),
@@ -1268,7 +1262,7 @@ class _WhiteboardScreenState extends ConsumerState<WhiteboardScreen> {
                       final isTeacher = p['role'] == 'teacher';
                       return ListTile(
                         leading: CircleAvatar(
-                          backgroundColor: isTeacher ? Colors.orange.withOpacity(0.2) : Colors.teal.withOpacity(0.2),
+                          backgroundColor: isTeacher ? Colors.orange.withValues(alpha: 0.2) : Colors.teal.withValues(alpha: 0.2),
                           child: Icon(
                             isTeacher ? Icons.school : Icons.person,
                             color: isTeacher ? Colors.orange : Colors.teal,
@@ -1347,7 +1341,7 @@ class _WhiteboardScreenState extends ConsumerState<WhiteboardScreen> {
                         Container(
                           padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(0.05),
+                            color: Colors.black.withValues(alpha: 0.05),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Text(

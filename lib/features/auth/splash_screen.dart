@@ -83,10 +83,10 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                 width: 100,
                 height: 100,
                 decoration: BoxDecoration(
-                  color: AppTheme.accentBlue.withOpacity(0.15),
+                  color: AppTheme.accentBlue.withValues(alpha: 0.15),
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: AppTheme.accentBlue.withOpacity(0.3),
+                    color: AppTheme.accentBlue.withValues(alpha: 0.3),
                     width: 2,
                   ),
                 ),

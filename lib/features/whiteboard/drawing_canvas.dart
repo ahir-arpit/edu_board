@@ -81,13 +81,13 @@ class DrawingCanvasPainter extends CustomPainter {
       // For eraser representation, we skip drawing or draw transparent/background color if not using clipping.
       // Since it's a simplified drawing model, the backend handles stroke deletion, and completed canvas
       // filtered lists don't include erased strokes. However, while drawing, we can show a grey stroke.
-      paint.color = Colors.grey.withOpacity(0.4);
+      paint.color = Colors.grey.withValues(alpha: 0.4);
       paint.style = PaintingStyle.stroke;
       paint.strokeWidth = stroke.width;
       paint.strokeCap = StrokeCap.round;
       paint.strokeJoin = StrokeJoin.round;
     } else if (stroke.tool == 'highlighter') {
-      paint.color = colorVal.withOpacity(0.35); // Semi-transparent
+      paint.color = colorVal.withValues(alpha: 0.35); // Semi-transparent
       paint.style = PaintingStyle.fill;
     } else {
       // Regular pen
@@ -180,7 +180,7 @@ class DrawingCanvasPainter extends CustomPainter {
         // Fill if color is supplied
         if (shape.fillColor != null) {
           final fillPaint = Paint()
-            ..color = _parseColor(shape.fillColor!).withOpacity(0.25)
+            ..color = _parseColor(shape.fillColor!).withValues(alpha: 0.25)
             ..style = PaintingStyle.fill;
           canvas.drawRect(rect, fillPaint);
         }
@@ -195,7 +195,7 @@ class DrawingCanvasPainter extends CustomPainter {
         // Fill if color is supplied
         if (shape.fillColor != null) {
           final fillPaint = Paint()
-            ..color = _parseColor(shape.fillColor!).withOpacity(0.25)
+            ..color = _parseColor(shape.fillColor!).withValues(alpha: 0.25)
             ..style = PaintingStyle.fill;
           canvas.drawCircle(start, radius, fillPaint);
         }
@@ -213,7 +213,7 @@ class DrawingCanvasPainter extends CustomPainter {
         // Fill if color is supplied
         if (shape.fillColor != null) {
           final fillPaint = Paint()
-            ..color = _parseColor(shape.fillColor!).withOpacity(0.25)
+            ..color = _parseColor(shape.fillColor!).withValues(alpha: 0.25)
             ..style = PaintingStyle.fill;
           canvas.drawPath(trianglePath, fillPaint);
         }

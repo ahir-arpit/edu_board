@@ -18,9 +18,7 @@ class AppTheme {
       primary: accentBlue,
       onPrimary: Colors.white,
       secondary: const Color(0xFF0D9488), // Teal
-      background: const Color(0xFFF8FAFC), // Off-white
       surface: Colors.white,
-      onBackground: const Color(0xFF0F172A),
       onSurface: const Color(0xFF0F172A),
     ),
     scaffoldBackgroundColor: const Color(0xFFF8FAFC),
@@ -61,9 +59,7 @@ class AppTheme {
       primary: accentBlue,
       onPrimary: Colors.white,
       secondary: const Color(0xFF14B8A6), // Teal
-      background: darkBlueBg,
       surface: const Color(0xFF1E293B), // Slate Grey/Blue
-      onBackground: const Color(0xFFF8FAFC),
       onSurface: const Color(0xFFF8FAFC),
     ),
     scaffoldBackgroundColor: darkBlueBg,
@@ -104,10 +100,10 @@ class AppTheme {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final baseColor = isDark ? Colors.black : Colors.white;
     return BoxDecoration(
-      color: baseColor.withOpacity(opacity),
+      color: baseColor.withValues(alpha: opacity),
       borderRadius: BorderRadius.circular(borderRadius),
       border: Border.all(
-        color: (isDark ? Colors.white : Colors.black).withOpacity(0.08),
+        color: (isDark ? Colors.white : Colors.black).withValues(alpha: 0.08),
         width: 1.0,
       ),
     );
