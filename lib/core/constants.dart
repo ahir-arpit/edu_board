@@ -24,7 +24,7 @@ class AppConstants {
 
   static bool get _useSecureProtocols {
     if (_backendUrlEnv.isNotEmpty) {
-      return _backendUrlEnv.startsWith('https://');
+      return !_backendUrlEnv.startsWith('http://');
     }
     if (kIsWeb) {
       return Uri.base.scheme == 'https';
