@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "627127402941",
-    "project_id": "eduboard-cf0b2",
-    "storage_bucket": "eduboard-cf0b2.firebasestorage.app"
+    "project_number": "57292678792",
+    "project_id": "smartboard-go",
+    "storage_bucket": "smartboard-go.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:627127402941:android:9743799adfc297cf8212d4",
+        "mobilesdk_app_id": "1:57292678792:android:38a1b5055addcdf9f6613d",
         "android_client_info": {
           "package_name": "com.eduboard"
         }
       },
       "oauth_client": [
         {
-          "client_id": "627127402941-3vjqq3hj48sr8ukl5bgt3ur1mmmh1cl0.apps.googleusercontent.com",
+          "client_id": "57292678792-3cel6l2kg8406mod5sd1veb6tigh12av.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB32FT4B3qJKLN1vWnOacyBQQO2y9vZBtk"
+          "current_key": "AIzaSyAzp9JWdvKfKwyFRW_Hut96O9TFiIr7SSs"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "627127402941-3vjqq3hj48sr8ukl5bgt3ur1mmmh1cl0.apps.googleusercontent.com",
+              "client_id": "57292678792-3cel6l2kg8406mod5sd1veb6tigh12av.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

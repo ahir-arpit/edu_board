@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class UserProfile {
   final String id;
@@ -132,12 +134,39 @@ class AuthService {
   }
 
   Future<UserProfile?> loginWithGoogle() async {
-    // In production, trigger GoogleSignIn flows. In local mode, return mock user.
     try {
-      // Normally:
-      // final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-      // final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
-      // ... firebase auth credentials signin
+      final auth = _firebaseAuth;
+      if (auth == null) throw Exception("Firebase not initialized");
+
+      final GoogleSignIn googleSignIn = GoogleSignIn(
+        clientId: kIsWeb
+            ? '57292678792-3cel6l2kg8406mod5sd1veb6tigh12av.apps.googleusercontent.com'
+            : null,
+      );
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+      if (googleUser == null) return null;
+
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+      final credential = fb.GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      final userCredential = await auth.signInWithCredential(credential);
+      
+      if (userCredential.user != null) {
+        _currentUser = UserProfile(
+          id: userCredential.user!.uid,
+          name: userCredential.user!.displayName ?? googleUser.displayName ?? "User",
+          email: userCredential.user!.email ?? googleUser.email,
+          photoUrl: userCredential.user!.photoURL ?? googleUser.photoUrl,
+        );
+        _fallbackController.add(_currentUser);
+        return _currentUser;
+      }
+    } catch (e) {
+      debugPrint("Firebase Google Sign-In failed, using mock profile. Error: $e");
       _currentUser = UserProfile(
         id: "google-mock-user-456",
         name: "Google Educator",
@@ -145,9 +174,8 @@ class AuthService {
       );
       _fallbackController.add(_currentUser);
       return _currentUser;
-    } catch (e) {
-      rethrow;
     }
+    return null;
   }
 
   Future<void> logout() async {
@@ -155,6 +183,10 @@ class AuthService {
       final auth = _firebaseAuth;
       if (auth != null) {
         await auth.signOut();
+      }
+      final GoogleSignIn googleSignIn = GoogleSignIn();
+      if (await googleSignIn.isSignedIn()) {
+        await googleSignIn.signOut();
       }
     } catch (_) {}
     _currentUser = null;

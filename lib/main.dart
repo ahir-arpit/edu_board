@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'app.dart';
 
 void main() async {
@@ -8,7 +9,9 @@ void main() async {
   
   // Safe Firebase Initialization
   try {
-    await Firebase.initializeApp();
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
     debugPrint("Firebase Initialized Successfully.");
   } catch (e) {
     debugPrint("Firebase initialization failed/skipped (missing config files). Using offline local simulation services.");
