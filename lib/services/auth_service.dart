@@ -166,7 +166,10 @@ class AuthService {
         return _currentUser;
       }
     } catch (e) {
-      debugPrint("Firebase Google Sign-In failed, using mock profile. Error: $e");
+      debugPrint("Firebase Google Sign-In failed. Error: $e");
+      if (_firebaseAuth != null) {
+        rethrow;
+      }
       _currentUser = UserProfile(
         id: "google-mock-user-456",
         name: "Google Educator",
