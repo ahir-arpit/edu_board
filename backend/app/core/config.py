@@ -23,7 +23,8 @@ class Settings(BaseSettings):
     # Redis
     REDIS_HOST: str = os.getenv("REDIS_HOST", "localhost")
     REDIS_PORT: int = int(os.getenv("REDIS_PORT", 6379))
-    
+    REDIS_PASSWORD: str = os.getenv("REDIS_PASSWORD", "")
+
     # Firebase (Optional verification on backend)
     USE_FIREBASE_AUTH: bool = os.getenv("USE_FIREBASE_AUTH", "False").lower() in ("true", "1", "yes")
     FIREBASE_CREDENTIALS_PATH: str = os.getenv("FIREBASE_CREDENTIALS_PATH", "")
@@ -32,3 +33,4 @@ class Settings(BaseSettings):
         case_sensitive = True
 
 settings = Settings()
+

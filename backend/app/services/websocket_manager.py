@@ -30,12 +30,16 @@ class ConnectionManager:
 
     def _init_redis_client(self):
         try:
-            self.redis_client = Redis(
-                host=settings.REDIS_HOST,
-                port=settings.REDIS_PORT,
-                db=0,
-                decode_responses=True
-            )
+            redis_kwargs = {
+                "host": settings.REDIS_HOST,
+                "port": settings.REDIS_PORT,
+                "db": 0,
+                "decode_responses": True
+            }
+            if settings.REDIS_PASSWORD:
+                redis_kwargs["password"] = settings.REDIS_PASSWORD
+            
+            self.redis_client = Redis(**redis_kwargs)
         except Exception as e:
             logger.warning(f"Failed to initialize Redis client: {e}. Falling back to in-memory mode.")
             self.redis_available = False
@@ -285,3 +289,4 @@ class ConnectionManager:
         return self.session_strokes_fallback.get(session_code, [])
 
 manager = ConnectionManager()
+
